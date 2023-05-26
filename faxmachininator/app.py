@@ -134,6 +134,7 @@ def draw_picture(pen, pixel_width: int, algorithm: list, left: int,
     color_index = 0
 
     for row in algorithm:
+        color_index = 0
         runs = row.strip().split(",")
         count = 0
         for run in runs:
