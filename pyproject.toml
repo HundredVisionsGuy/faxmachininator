@@ -6,6 +6,7 @@ authors = ["hundredvisionsguy <winikkc@hsd.k12.or.us>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+pyqt6 = "*"
 ruff = "^0.0.270"
 pre-commit = "^3.3.2"
 
