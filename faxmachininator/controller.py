@@ -2,6 +2,8 @@
 image'."""
 
 from pathlib import Path
+from PyQt6 import QtGui
+
 
 def get_file_contents(path: str, filename: str) -> list:
     """Returns the contents of the file in the path.
@@ -20,6 +22,26 @@ def get_file_contents(path: str, filename: str) -> list:
     f.close()
     return rows
 
+def draw_picture(painter, pen, colors):
+    x = 40
+    y = 50
+    for row in algorithm:
+        runs = row.strip().split(")")
+        for run in runs:
+            if run:
+                pixels, color = run.split(",")
+                start = pixels.index("(")
+                pixels = int(pixels[start+1:])
+                color = int(color)
+                pen.setColor(QtGui.QColor(colors[color]))
+                painter.setPen(pen)
+                for pix in range(pixels):
+                    x += 40
+                    painter.drawPoint(x, y)
+        y += 40
+        x = 40
+
 
 # get the algorithm
-algorithm = get_file_contents("data/", "sample.txt")
+algorithm = get_file_contents("data/", "colorsample.txt")
+
