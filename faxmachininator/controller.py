@@ -26,6 +26,9 @@ def draw_picture(painter, pen, colors):
     x = 40
     y = 50
     for row in algorithm:
+        if not row.strip():
+            continue
+        row = row.replace("),", ") ")
         runs = row.strip().split(")")
         for run in runs:
             if run:
@@ -43,5 +46,5 @@ def draw_picture(painter, pen, colors):
 
 
 # get the algorithm
-algorithm = get_file_contents("data/", "colorsample.txt")
+algorithm = get_file_contents("data/", "colorsample1.txt")
 
