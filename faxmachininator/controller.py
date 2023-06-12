@@ -25,8 +25,14 @@ def get_file_contents(path: str, filename: str) -> list:
 def draw_picture(painter, pen, colors):
     x = 40
     y = 50
+    author = ""
     for row in algorithm:
-        if not row.strip():
+        if "name" in row.lower():
+            if ":" in row:
+                author = row.split(":")[1]
+            else:
+                author = row.strip()
+        if not row.strip() or "(" not in row:
             continue
         row = row.replace("),", ") ")
         runs = row.strip().split(")")
@@ -43,7 +49,7 @@ def draw_picture(painter, pen, colors):
                     painter.drawPoint(x, y)
         y += 40
         x = 40
-
+    return author
 
 # get the algorithm
 algorithm = get_file_contents("data/", "colorsample1.txt")
