@@ -10,8 +10,12 @@ def main():
     pen = turtle.Pen()
     pen.speed(0)
 
+    # Set screen size and location to be in middle monitor
+    screen = turtle.Screen()
+    screen.setup(800, 800, 2200, 100)
+
     # get the algorithm
-    algorithm = get_file_contents("data/", "sample.txt")
+    algorithm = get_file_contents("data/", "sample3.txt")
 
     # get setup data
     dimensions = get_dimensions(algorithm)
@@ -60,8 +64,6 @@ def get_dimensions(algorithm: str) -> tuple:
             max_width = width
 
     return (max_width, height)
-
-    return get_dimensions(algorithm)
 
 
 def get_file_contents(path: str, filename: str) -> list:

@@ -22,6 +22,7 @@ def get_file_contents(path: str, filename: str) -> list:
     f.close()
     return rows
 
+
 def draw_picture(painter, pen, colors):
     x = 40
     y = 50
@@ -51,6 +52,6 @@ def draw_picture(painter, pen, colors):
         x = 40
     return author
 
-# get the algorithm
-algorithm = get_file_contents("data/", "colorsample1.txt")
 
+# get the algorithm
+algorithm = get_file_contents("data/", "MarkL_color_image.txt")

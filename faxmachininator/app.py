@@ -6,10 +6,10 @@ import controller
 
 # make a tuple of colors so we can use indexing
 colors = (
-    "white", "black", "red", "darkRed", "green", 
-    "darkGreen", "blue", "darkBlue", "cyan", "darkCyan", 
-    "magenta", "darkMagenta", "yellow", "darkYellow", 
-    "gray", "darkGray", "lightGray"
+    "white", "black", "red", "darkRed", "green",
+    "darkGreen", "blue", "darkBlue", "cyan", "darkCyan",
+    "magenta", "darkMagenta", "yellow", "darkYellow",
+    "gray", "darkGray", "lightGray", "#4782c9"
 )
 
 
