@@ -9,6 +9,7 @@ python = "^3.9"
 pyqt6 = "*"
 ruff = "^0.0.270"
 pre-commit = "^3.3.2"
+file-clerk = "^1.1.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

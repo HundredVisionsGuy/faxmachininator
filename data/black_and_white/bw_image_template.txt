@@ -1,0 +1,9 @@
+Name: Enter your name here (if you want it to show when I run it)
+Algorithm: below is a sample algorithm
+4, 11
+4, 9, 2, 1
+4, 9, 2, 1
+4, 9
+4, 9
+5, 7
+0, 17

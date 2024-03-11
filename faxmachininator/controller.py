@@ -54,4 +54,4 @@ def draw_picture(painter, pen, colors):
 
 
 # get the algorithm
-algorithm = get_file_contents("data/", "MarkL_color_image.txt")
+algorithm = get_file_contents("data/color_projects/", "MarkL_color_image.txt")

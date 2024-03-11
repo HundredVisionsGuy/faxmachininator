@@ -154,3 +154,7 @@ cython_debug/
 
 # Student work
 *color_image.txt 
+data/black_and_white/*.txt
+!data/black_and_white/bw_image_template.txt
+data/color_projects/*.txt
+!data/color_projects/color_image_template.txt
