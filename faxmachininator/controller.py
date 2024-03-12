@@ -1,8 +1,17 @@
 """This controller contains all the functions to draw the 'binary
 image'."""
 
+import file_clerk.clerk as clerk
 from pathlib import Path
 from PyQt6 import QtGui
+from PyQt6.QtWidgets import QComboBox
+
+
+def get_color_project() -> QComboBox:
+    combo_box = QComboBox()
+    files = clerk.get_all_files_of_type("data/color_projects/", "txt")
+    combo_box.addItems(files)
+    return combo_box
 
 
 def get_file_contents(path: str, filename: str) -> list:
@@ -23,16 +32,22 @@ def get_file_contents(path: str, filename: str) -> list:
     return rows
 
 
-def draw_picture(painter, pen, colors):
+def draw_picture(full_path: str, painter: QtGui.QPainter, pen: QtGui.QPen,
+                 colors: tuple):
+    # get the algorithm
+    filename = clerk.get_file_name(full_path)
+    algorithm = get_file_contents("data/color_projects/", filename)
     x = 40
     y = 50
     author = ""
     for row in algorithm:
+        row = row.strip()
         if "name" in row.lower():
             if ":" in row:
                 author = row.split(":")[1]
             else:
                 author = row.strip()
+            continue
         if not row.strip() or "(" not in row:
             continue
         row = row.replace("),", ") ")
@@ -53,5 +68,4 @@ def draw_picture(painter, pen, colors):
     return author
 
 
-# get the algorithm
-algorithm = get_file_contents("data/color_projects/", "MarkL_color_image.txt")
+
