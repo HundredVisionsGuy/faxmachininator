@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import (QWidget, QLabel, QVBoxLayout, QComboBox)
 from PyQt6.QtGui import QPixmap, QColor
 import controller
 
+
 # make a tuple of colors so we can use indexing
 colors = (
     "white", "black", "red", "darkRed", "green",
@@ -21,8 +22,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.pixel_size = 45
-        cols = 16
-        rows = 16
+        cols = 23
+        rows = 30
         width = cols * self.pixel_size
         height = rows * self.pixel_size
         main_layout = QVBoxLayout()
@@ -43,11 +44,12 @@ class MainWindow(QtWidgets.QMainWindow):
         main_layout.addWidget(self.label)
         main_layout.addWidget(self.author_label)
         self.projects_combo.currentTextChanged.connect(self.filename_changed)
-        
+
         # Set main layout
-        gui = QWidget()
-        gui.setLayout(main_layout)
-        self.setCentralWidget(gui)
+        self.gui = QWidget()
+        self.gui.setAutoFillBackground(True)
+        self.gui.setLayout(main_layout)
+        self.setCentralWidget(self.gui)
 
         self.draw_picture()
 
@@ -57,11 +59,13 @@ class MainWindow(QtWidgets.QMainWindow):
     def draw_picture(self, file_path="", color="black"):
         canvas = self.label.pixmap()
         painter = QtGui.QPainter(canvas)
+
         pen = QtGui.QPen()
         pen.setWidth(40)
         if not file_path:
             file_path = clerk.get_all_files_of_type("data/color_projects/",
                                                     "txt")[0]
+        controller.clear_screen(painter, pen, colors)
         author = controller.draw_picture(file_path, painter, pen,
                                          colors)
         # painter.drawPoint(225, 150)

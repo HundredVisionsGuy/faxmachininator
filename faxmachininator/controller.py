@@ -33,7 +33,7 @@ def get_file_contents(path: str, filename: str) -> list:
 
 
 def draw_picture(full_path: str, painter: QtGui.QPainter, pen: QtGui.QPen,
-                 colors: tuple):
+                 colors: tuple) -> None:
     # get the algorithm
     filename = clerk.get_file_name(full_path)
     algorithm = get_file_contents("data/color_projects/", filename)
@@ -55,6 +55,8 @@ def draw_picture(full_path: str, painter: QtGui.QPainter, pen: QtGui.QPen,
         for run in runs:
             if run:
                 pixels, color = run.split(",")
+                pixels = pixels.strip()
+                color = color.strip()
                 start = pixels.index("(")
                 pixels = int(pixels[start+1:])
                 color = int(color)
@@ -68,4 +70,18 @@ def draw_picture(full_path: str, painter: QtGui.QPainter, pen: QtGui.QPen,
     return author
 
 
-
+def clear_screen(painter: QtGui.QPainter, pen: QtGui.QPen,
+                 colors: tuple) -> None:
+    x = 40
+    y = 50
+    width = 26
+    for row in range(width):
+        pixels, color = (width, 0)
+        color = int(color)
+        pen.setColor(QtGui.QColor(colors[color]))
+        painter.setPen(pen)
+        for pix in range(pixels):
+            x += 40
+            painter.drawPoint(x, y)
+        y += 40
+        x = 40
