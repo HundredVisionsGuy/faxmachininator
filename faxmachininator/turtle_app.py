@@ -169,8 +169,8 @@ def get_pixel_width(dim: tuple, pen) -> int:
 def goto_start(pen, dim: tuple, pixel_width: int) -> None:
     """Put the pen at the upper-left region of the screen"""
     w, h = dim
-    left = -w * pixel_width
-    top = h * pixel_width
+    left = -w * pixel_width + 100
+    top = h * pixel_width - 200
     pen.up()
     pen.goto(left, top)
     pen.down()
@@ -192,6 +192,8 @@ def draw_picture(pen, pixel_width: int, algorithm: list, left: int,
     # a color of 0 is white (clear) 1 is black
     colors = ("white", "black")
     color_index = 0
+    pen.shape("square")
+    pen.pensize(pixel_width)
     for row in algorithm:
         color_index = 0
         runs = row.strip().split(",")
@@ -207,7 +209,7 @@ def draw_picture(pen, pixel_width: int, algorithm: list, left: int,
                 draw_pixel(pen, pixel_width)
                 pen.end_fill()
                 pen.up()
-                pen.fd(pixel_width)
+                pen.fd(pixel_width - 4)
                 pen.down()
             color_index += 1
             color_index %= 2
@@ -216,13 +218,38 @@ def draw_picture(pen, pixel_width: int, algorithm: list, left: int,
         pen.fillcolor(color)
         for pixels in range(remaining):
             pen.begin_fill()
-            draw_pixel(pen, pixel_width)
+            draw_pixel(pen, pixel_width + 4)
             pen.end_fill()
             pen.up()
-            pen.fd(pixel_width)
+            # pen.fd(pixel_width)
             pen.down()
 
         goto_next_row(pen, pixel_width, left)
+
+
+def prep_algorithm(algorithm):
+    new_algorithm = []
+    pixel_width = 0
+    # get pixel width (max count of any given row)
+    for row in algorithm:
+        runs = row.split(",")
+        count = 0
+        for run in runs:
+            count += 1 * int(run)
+        if count > pixel_width:
+            pixel_width = count
+
+    # adjust for remaining white pixels
+    for row in algorithm:
+        runs = row.split(",")
+        count = 0
+        for run in runs:
+            count += 1 * int(run)
+        if count < pixel_width:
+            runs.append(str(pixel_width - count))
+        new_row = ",".join(runs)
+        new_algorithm.append(new_row)
+    return new_algorithm
 
 
 def clean_algorithm(algorithm):
@@ -245,9 +272,7 @@ def draw_pixel(pen, width: int) -> None:
         pen: A turtle graphics pen
         width: length of pixel side
     """
-    for i in range(4):
-        pen.fd(width)
-        pen.right(90)
+    pen.stamp()
 
 
 def goto_next_row(pen, width: int, left: int) -> None:
@@ -255,7 +280,7 @@ def goto_next_row(pen, width: int, left: int) -> None:
     pen.up()
     pen.setx(left)
     pen.right(90)
-    pen.fd(width)
+    pen.fd(width - 4)
     pen.left(90)
     pen.down()
 

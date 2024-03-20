@@ -1,9 +1,18 @@
-Name: Enter your name here (if you want it to show when I run it)
-Algorithm: below is a sample algorithm
-4, 11
-4, 9, 2, 1
-4, 9, 2, 1
-4, 9
-4, 9
-5, 7
-0, 17
+Name: Anonymous
+Algorithm:
+5,1,3,1,6
+7,1,8
+6,3,3,1,3
+7,1,4,1,3
+3,1,1,1,3,1,1,3,2
+3,1,7,3,2
+3,1,7,4,1
+2,3,5,6
+2,3,5,6
+2,4,3,7
+1,5,2,7
+0,16
+0,16
+0,16
+0,16
+0,16
