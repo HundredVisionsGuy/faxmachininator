@@ -10,7 +10,9 @@ from PyQt6.QtWidgets import QComboBox
 def get_color_project() -> QComboBox:
     combo_box = QComboBox()
     files = clerk.get_all_files_of_type("data/color_projects/", "txt")
+    bw_files = clerk.get_all_files_of_type("data/black_and_white", "txt")
     combo_box.addItems(files)
+    combo_box.addItems(bw_files)
     return combo_box
 
 
@@ -36,7 +38,11 @@ def draw_picture(full_path: str, painter: QtGui.QPainter, pen: QtGui.QPen,
                  colors: tuple) -> None:
     # get the algorithm
     filename = clerk.get_file_name(full_path)
-    algorithm = get_file_contents("data/color_projects/", filename)
+    if "black_and_white" in full_path:
+        algorithm = get_file_contents("data/black_and_white/", filename)
+        algorithm = convert_to_color(algorithm)
+    else:
+        algorithm = get_file_contents("data/color_projects/", filename)
     x = 40
     y = 50
     author = ""
@@ -54,7 +60,10 @@ def draw_picture(full_path: str, painter: QtGui.QPainter, pen: QtGui.QPen,
         runs = row.strip().split(")")
         for run in runs:
             if run:
-                pixels, color = run.split(",")
+                try:
+                    pixels, color = run.split(",")
+                except ValueError:
+                    print(run)
                 pixels = pixels.strip()
                 color = color.strip()
                 start = pixels.index("(")
@@ -68,6 +77,32 @@ def draw_picture(full_path: str, painter: QtGui.QPainter, pen: QtGui.QPen,
         y += 40
         x = 40
     return author
+
+
+def convert_to_color(algorithm: list) -> list:
+    new_algo = []
+
+    for row in algorithm:
+        color = 0
+        new_row = []
+        if ("name" in row.lower() or "algorithm" in row.lower() or
+            "student" in row.lower()):
+            new_algo.append(row)
+            continue
+        else:
+            runs = row.split(",")
+            for run in runs:
+                pixels = f"({run.strip()}, {color},)"
+                new_row.append(pixels)
+                color += 1
+                color %= 2
+            new_row = str(new_row)
+            new_row = new_row.replace("'", "")
+            new_row = new_row.replace("[", "")
+            new_row = new_row.replace("]", "")
+            new_row = new_row.replace(",)", ")")
+            new_algo.append(new_row)
+    return new_algo
 
 
 def clear_screen(painter: QtGui.QPainter, pen: QtGui.QPen,
