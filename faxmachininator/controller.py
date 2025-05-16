@@ -10,6 +10,7 @@ from PyQt6.QtWidgets import QComboBox
 def get_color_project() -> QComboBox:
     combo_box = QComboBox()
     files = clerk.get_all_files_of_type("data/color_projects/", "txt")
+    files += clerk.get_all_files_of_type("data/black_and_white/", "txt")
     combo_box.addItems(files)
     return combo_box
 
@@ -36,7 +37,10 @@ def draw_picture(full_path: str, painter: QtGui.QPainter, pen: QtGui.QPen,
                  colors: tuple) -> None:
     # get the algorithm
     filename = clerk.get_file_name(full_path)
-    algorithm = get_file_contents("data/color_projects/", filename)
+    directory = clerk.get_path_list(full_path)
+    directory.pop()
+    directory = "/".join(directory)
+    algorithm = get_file_contents(directory, filename)
     x = 40
     y = 50
     author = ""
@@ -49,7 +53,21 @@ def draw_picture(full_path: str, painter: QtGui.QPainter, pen: QtGui.QPen,
                 author = row.strip()
             continue
         if not row.strip() or "(" not in row:
-            continue
+            if "color" not in directory:
+                # Gotta convert black and white to color
+                if "," in row:
+                    pixel_run = row.split(",")
+                    cur_color = 0
+                    # alternate between white and black 0 and 1
+                    row = ""
+                    for i in pixel_run:
+                        row += f"({i},{cur_color})"
+                        cur_color += 1
+                        cur_color = cur_color % 2
+                else:
+                    continue
+            else:
+                continue
         row = row.replace("),", ") ")
         runs = row.strip().split(")")
         for run in runs:
