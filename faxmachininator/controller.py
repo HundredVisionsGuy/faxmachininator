@@ -86,7 +86,7 @@ def convert_to_color(algorithm: list) -> list:
         color = 0
         new_row = []
         if ("name" in row.lower() or "algorithm" in row.lower() or
-            "student" in row.lower()):
+                "student" in row.lower()):
             new_algo.append(row)
             continue
         else:
