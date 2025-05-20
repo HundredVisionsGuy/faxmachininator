@@ -194,6 +194,7 @@ def draw_picture(pen, pixel_width: int, algorithm: list, left: int,
     color_index = 0
     pen.shape("square")
     pen.pensize(pixel_width)
+    algorithm = prep_algorithm(algorithm)
     for row in algorithm:
         color_index = 0
         runs = row.strip().split(",")

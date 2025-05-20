@@ -10,8 +10,8 @@ import controller
 colors = (
     "white", "black", "red", "darkRed", "green",
     "darkGreen", "blue", "darkBlue", "cyan", "darkCyan",
-    "magenta", "darkMagenta", "yellow", "darkYellow",
-    "gray", "darkGray", "lightGray", "#4782c9", "beige",
+    "magenta", "darkMagenta", "yellow", "#666666",
+    "#b7b7b7", "#d9d9d9", "#efefef", "#4782c9", "beige",
     "bisque", "chocolate", "#944E63", "#bdc0c9", "#435B66",
     "#A76F6F", "CornflowerBlue", "SandyBrown", "LightPink",
     "PaleVioletRed", "#613e22"
