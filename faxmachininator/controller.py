@@ -69,10 +69,16 @@ def draw_picture(full_path: str, painter: QtGui.QPainter, pen: QtGui.QPen,
             else:
                 continue
         row = row.replace("),", ") ")
+        row = row.replace(")  (", ") (")
         runs = row.strip().split(")")
+        print(runs)
         for run in runs:
             if run:
-                pixels, color = run.split(",")
+                try:
+                    pixels, color = run.split(",")
+                except ValueError:
+                    print("Doh! We have a ValueError")
+                    continue
                 pixels = pixels.strip()
                 color = color.strip()
                 start = pixels.index("(")
@@ -85,6 +91,7 @@ def draw_picture(full_path: str, painter: QtGui.QPainter, pen: QtGui.QPen,
                     painter.drawPoint(x, y)
         y += 40
         x = 40
+    print("="*15)
     return author
 
 

@@ -14,10 +14,10 @@ colors = (
     "gray", "darkGray", "lightGray", "#4782c9", "beige",
     "bisque", "chocolate", "#944E63", "#bdc0c9", "#435B66",
     "#A76F6F", "CornflowerBlue", "SandyBrown", "LightPink",
-    "PaleVioletRed"
+    "PaleVioletRed", "#613e22"
 )
 
-
+print(f"Num colors: {len(colors)}")
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
